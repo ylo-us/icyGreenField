@@ -2,12 +2,18 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var OAuth   = require('oauth-1.0a');
+// var promisify = require('promisify-node');
+// var request = Promise.promisify(require('request'));
+// Promise.promisifyAll(request);
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', function(req, res) {
+var location = 'san diego' // from user's input
+var term = 'museum' // from user's input
+
+app.get('/yelp', function(req, res) {
 	var oauth = OAuth({
 	  consumer: {
 	      public: 'xi_i5XExqHs6OjTO-t5tAw',
@@ -22,7 +28,8 @@ app.get('/', function(req, res) {
 	};
 
 	var request_data = {
-	    url: 'https://api.yelp.com/v2/search?location=sf&term=puff&limit=2',
+		// returned results are hard coded as 5 per request
+	    url: 'https://api.yelp.com/v2/search?location=' + location + '&term=' + term + '&limit=5',
 	    method: 'GET',
 	};
 	var data;
@@ -34,12 +41,13 @@ app.get('/', function(req, res) {
 	    form: oauth.authorize(request_data, token)
 	}, function(error, response, body) {
 			var data = [];
-			console.log(body);
+			// console.log(body);
 			resData = JSON.parse(body);
 			for (var i = 0; i < resData.businesses.length; i++) {
 				data.push({
 					name: resData.businesses[i].name,
 					rating: resData.businesses[i].rating,
+					reviewCount: resData.businesses[i].review_count,
 					url: resData.businesses[i].url,
 					phone: resData.businesses[i].display_phone,
 					address: resData.businesses[i].location.display_address,

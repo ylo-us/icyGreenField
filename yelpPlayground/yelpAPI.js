@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var OAuth   = require('oauth-1.0a');
+var path = require('path');
 // var promisify = require('promisify-node');
 // var request = Promise.promisify(require('request'));
 // Promise.promisifyAll(request);
@@ -9,9 +10,14 @@ var OAuth   = require('oauth-1.0a');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/../client'));
 
-var location = 'san diego' // from user's input
+var location = 'sf' // from user's input
 var term = 'museum' // from user's input
+
+app.get('/api/search', function(req, res) {
+	res.sendFile(path.resolve('client/index.html'));
+});
 
 app.get('/yelp', function(req, res) {
 	var oauth = OAuth({
@@ -29,7 +35,7 @@ app.get('/yelp', function(req, res) {
 
 	var request_data = {
 		// returned results are hard coded as 5 per request
-	    url: 'https://api.yelp.com/v2/search?location=' + location + '&term=' + term + '&limit=5',
+	    url: 'https://api.yelp.com/v2/search?location=' + location + '&term=' + term + '&limit=10',
 	    method: 'GET',
 	};
 	var data;

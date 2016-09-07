@@ -3,19 +3,20 @@ angular.module('housing.result', [])
 	$scope.results = []; // array of result from server
 	// craigslist is the mock data
 	$scope.craigslist = craigslist;
-	var temp = craigslist;
-	$scope.yelp = yelp;
 	var resultInit = function() {
 		for (var key in craigslist) {
 			for (var i = 0; i < craigslist[key].length; i++) {
 				var text = craigslist[key][i].title
 				console.log(craigslist[key][i].title);
-				$scope.craigslist[key][i].title = $sce.trustAsHtml(temp[key][i].title);
+				$scope.craigslist[key][i].title = $sce.trustAsHtml($scope.craigslist[key][i].title);
 			}
 		}
+		GoogleMap.googleMapsInitialize(craigslist, Object.keys(craigslist)[0]);
 	};
 	resultInit();
-	// GoogleMap.googleMapsInitialize(craigslist, 'tenderloin');
+	$scope.selectNeighborhood = function(neighborhood) {
+		GoogleMap.googleMapsInitialize(craigslist, neighborhood);
+	};
 	// var pageInit = function() {
 	// 	// Service.getResult()
 	// 	// .then(function(results) {

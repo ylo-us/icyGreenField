@@ -44,6 +44,7 @@ angular.module('main', ['housing.search', 'housing.result', 'housing.service', '
 		  zoom:15,
 		  mapTypeId:google.maps.MapTypeId.ROADMAP
 		};
+	    console.log('debugguer 1');
 
 		var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 		console.log(markerArr);

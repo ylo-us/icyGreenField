@@ -1,0 +1,9 @@
+.neighborhood {
+  display: inline-flex;
+  align-items: center;
+}
+
+#googleMap {
+	width: 800px;
+	height: 780px;
+}

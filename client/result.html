@@ -1,8 +1,11 @@
 <div id="result">
 	<div>
-		<div ng-repeat="(neighborhood, listing) in craigslist">
-			<div id="googleMap" style="width:500px;height:380px;"></div>
-			<h3>{{neighborhood}}</h3>
+		<div class="neighborhood" ng-repeat="(neighborhood, listing) in craigslist" ng-style="myStyle">
+		<div>
+			<div ng-click="selectNeighborhood(neighborhood)">
+				<h3>{{neighborhood}}</h3>
+				<img class="myNeighborhood"></img>
+			</div>
 			<div ng-repeat="list in listing">
 				<ul>
 					<li>
@@ -23,29 +26,9 @@
 					</li>
 				</ul>	
 			</div>
-			<h4>Something you might be interested...</h4>
-			<div ng-repeat="business in yelp">
-				<ul>
-					<li>
-						<table>
-							<tr>
-								<td>{{business.name}}</td>
-							</tr>
-							<tr>
-								<td>Link: <a href="{{business.url}}">{{business.url}}</a></td>
-							</tr>
-							<tr>
-								<td>Rating: {{business.rating}}</td>
-							</tr>
-							<tr>
-								<td>Reviews: {{business.reviewCount}}</td>
-							</tr>
-						</table>
-					</li>
-				</ul>	
-			</div>
 		</div>
-		
+		</div>
+		<div id="googleMap";"></div>
 		<div>
 			<a href="#/search"><strong>New Search?</strong></a>
 		</div>

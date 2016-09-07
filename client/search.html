@@ -5,7 +5,10 @@
 	<div>
 		<span><input type="text" ng-model="term" placeholder="food, library, cafe..."></span>
 	</div>
-		<span><button>Search</button></span>
+	<div>
+		<span><input type="text" ng-model="price" placeholder="what's your budget?"></span>
+	</div>
+		<span><button ng-click="search()">Search</button></span>
 		<h2>{{location}}</h2>
 		<h2>{{term}}</h2>
 	</div>
